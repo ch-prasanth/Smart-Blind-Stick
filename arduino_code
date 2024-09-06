@@ -1,0 +1,36 @@
+Const int trigPin1 = 4; 
+Const int echoPin1 = 5; 
+Const int buzzer = 7; 
+Const int led = 9;
+
+Long duration1;
+Int distance1;
+Int safetyDistance;
+
+Void setup() {
+  pinMode(trigPin1, OUTPUT);
+  pinMode(echoPin1, INPUT);
+  pinMode(buzzer, OUTPUT);
+  pinMode(led, OUTPUT);
+  Serial.begin(9600);
+}
+
+Void loop() {
+  digitalWrite(led, HIGH);
+  digitalWrite(trigPin1, LOW); 
+  delayMicroseconds(5);
+
+  digitalWrite(trigPin1, HIGH); 
+  delayMicroseconds(15);
+
+  duration1 = pulseIn(echoPin1, HIGH);
+  distance1 = duration1 * 0.034 / 2;
+
+  if (safetyDistance >= distance1) { 
+    if (safetyDistance <= 100) { 
+      digitalWrite(buzzer, HIGH);
+    } else {
+      digitalWrite(buzzer, LOW);
+    }
+  }
+}
